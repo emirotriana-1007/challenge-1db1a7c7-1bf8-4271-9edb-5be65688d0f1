@@ -6,6 +6,16 @@ variable "aws_region" {
   type        = string
 }
 
+variable "project_name" {
+  description = "Nombre del proyecto, usado como prefijo en los tags Name."
+  type        = string
+}
+
+variable "environment" {
+  description = "Ambiente de despliegue (dev, qa, prod)."
+  type        = string
+}
+
 variable "vpc_cidr_block" {
   description = "CIDR block para la VPC"
   type        = string
@@ -16,7 +26,7 @@ variable "vpc_cidr_block" {
 }
 
 variable "vpc_name" {
-  description = "Nombre de la VPC"
+  description = "vpc_name"
   type        = string
 }
 
@@ -52,16 +62,58 @@ variable "vpn_name" {
   type        = string
 }
 
+variable "vpn_bgp_asn" {
+  description = "ASN BGP del gateway del cliente (on-premise)."
+  type        = number
+}
+
+variable "vpn_customer_gateway_ip" {
+  description = "IP pública del dispositivo VPN on-premise."
+  type        = string
+}
+
+variable "vpn_static_routes_only" {
+  description = "Usar rutas estáticas (true) en lugar de BGP dinámico (false)."
+  type        = bool
+}
+
+variable "vpn_preshared_key_1" {
+  description = "Clave precompartida del túnel VPN 1."
+  type        = string
+  sensitive   = true
+}
+
 variable "vpn_server_common_name" {
   description = "Common Name (CN) para el certificado del servidor VPN"
   type        = string
   default     = "vpn.example.com"
 }
 
+variable "vpn_preshared_key_2" {
+  description = "Clave precompartida del túnel VPN 2."
+  type        = string
+  sensitive   = true
+}
+
+variable "vpn_tunnel_cidr_1" {
+  description = "Bloque /30 interno del túnel VPN 1 (ej. 169.254.10.0/30)."
+  type        = string
+}
+
+variable "vpn_tunnel_cidr_2" {
+  description = "Bloque /30 interno del túnel VPN 2 (ej. 169.254.11.0/30)."
+  type        = string
+}
+
 variable "vpn_allowed_cidr_blocks" {
   description = "Lista de CIDR blocks permitidos para acceder a la VPN"
   type        = list(string)
   default     = ["0.0.0.0/0"]
+}
+
+variable "vpn_remote_network_cidr" {
+  description = "Bloque CIDR de la red remota (on-premise) alcanzable por la VPN."
+  type        = string
 }
 
 variable "tags" {
@@ -97,3 +149,17 @@ variable "enable_dns_hostnames" {
   type        = bool
   default     = true
 }
+
+variable "backend_bucket" {
+  description = "Nombre del bucket S3 donde se almacena el estado remoto de Terraform."
+  type        = string
+}
+
+variable "backend_dynamodb_table" {
+  description = "Nombre de la tabla DynamoDB usada para el bloqueo de estado."
+  type        = string
+}
+
+
+
+

@@ -1,0 +1,9 @@
+# Terraform caches y estado (no se versionan)
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+
+# macOS
+.DS_Store

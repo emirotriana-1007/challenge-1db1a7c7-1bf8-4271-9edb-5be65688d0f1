@@ -72,7 +72,7 @@ output "vpn_gateway_arn" {
 
 output "tunnel_status" {
   description = "Estado de ambos túneles de la conexión VPN"
-  value       = {
+  value = {
     tunnel1 = aws_vpn_connection.main.tunnel1_status
     tunnel2 = aws_vpn_connection.main.tunnel2_status
   }

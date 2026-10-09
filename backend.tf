@@ -14,7 +14,7 @@ terraform {
   backend "s3" {
     bucket         = var.backend_bucket
     key            = "${var.environment}/terraform.tfstate"
-    region         = var.region
+    region         = var.aws_region
     encrypt        = true
     dynamodb_table = var.backend_dynamodb_table
 
@@ -33,11 +33,11 @@ terraform {
 # con las características actuales de Terraform.
 
 provider "aws" {
-  region = var.region
+  region = var.aws_region
 
   default_tags {
     tags = merge(
-      var.tags_defaults,
+      var.tags,
       {
         Environment = var.environment
         Project     = var.project_name
@@ -48,9 +48,7 @@ provider "aws" {
 
   # Configuración de retry para operaciones que pueden fallar
   # temporalmente debido a limitaciones de la API de AWS
-  retries {
-    max_attempts = 3
-  }
+  max_retries = 3
 }
 
 # =====================================================
@@ -89,7 +87,7 @@ output "backend_dynamodb_table" {
 
 output "backend_region" {
   description = "Región del backend S3"
-  value       = var.region
+  value       = var.aws_region
   sensitive   = false
 }
 

@@ -1,52 +1,44 @@
-environment               = "qa"
-aws_region               = "us-east-1"
+# =====================================================
+# Ambiente QA
+# =====================================================
+# NOTA DE SEGURIDAD: las vpn_preshared_key_* son valores de EJEMPLO.
+# En un proyecto real nunca van en texto plano en el repo; se gestionan
+# con AWS Secrets Manager / SSM Parameter Store o variables de entorno.
 
-# Configuración de la VPC
-vpc_cidr                 = "10.1.0.0/16"
-enable_dns_hostnames     = true
-enable_dns_support       = true
+# --- Identidad y región ---
+aws_region   = "us-east-1"
+project_name = "cloud-ops-vpc"
+environment  = "qa"
 
-# Subredes públicas - dos AZs para alta disponibilidad en QA
-public_subnet_cidrs      = ["10.1.1.0/24", "10.1.2.0/24"]
-public_subnet_names      = ["qa-public-subnet-az1", "qa-public-subnet-az2"]
+# --- VPC (Fase 1) ---
+vpc_cidr_block = "10.1.0.0/16"
+vpc_name       = "qa-main-vpc"
 
-# Subredes privadas - dos AZs para alta disponibilidad en QA
-private_subnet_cidrs     = ["10.1.10.0/24", "10.1.20.0/24"]
-private_subnet_names     = ["qa-private-subnet-az1", "qa-private-subnet-az2"]
+# --- Subredes: 3 por tier (main.tf usa indices [0], [1], [2]) ---
+public_subnet_cidrs  = ["10.1.1.0/24", "10.1.2.0/24", "10.1.3.0/24"]
+private_subnet_cidrs = ["10.1.10.0/24", "10.1.20.0/24", "10.1.30.0/24"]
 
-# Zonas de disponibilidad para QA
-availability_zones       = ["us-east-1a", "us-east-1b"]
-
-# Configuración de NAT Gateway - NAT dedicada por AZ en QA para mejor aislamiento
-single_nat_gateway       = false
-one_nat_gateway_per_az   = true
-
-# Configuración de VPN
-enable_vpn               = true
-vpn_cidr                 = "10.1.100.0/24"
-vpn_instance_type        = "t3.small"
-
-# Etiquetado para optimización de costos en QA
-tags = {
-  Environment     = "qa"
-  Project         = "cloud-ops-vpc"
-  CostCenter      = "qa-team"
-  ManagedBy       = "terraform"
-  ComplianceLevel = "qa-standard"
-  BackupRequired  = "true"
-  Monitoring      = "standard"
-  DataClassification = "internal"
-  SLATarget       = "99.9"
-}
-
-# Nombres de recursos con sufijo de ambiente
-resource_prefix         = "qa"
-vpc_name                = "qa-main-vpc"
-igw_name                = "qa-internet-gateway"
-ngw_name                = "qa-nat-gateway"
-eip_ngw_name            = "qa-nat-eip"
-rtb_public_name         = "qa-public-rt"
-rtb_private_name        = "qa-private-rt"
-acm_certificate_arn     = ""
-vpn_customer_gateway_ip = "203.0.113.20"
+# --- VPN (Fase 3) ---
+vpn_name                = "qa-vpn"
+vpn_client_cidr_block   = "192.168.100.0/22"
 vpn_bgp_asn             = 65002
+vpn_customer_gateway_ip = "203.0.113.20"
+vpn_static_routes_only  = true
+vpn_remote_network_cidr = "172.16.0.0/16"
+vpn_tunnel_cidr_1       = "169.254.20.0/30"
+vpn_tunnel_cidr_2       = "169.254.21.0/30"
+vpn_preshared_key_1     = "CHANGE_ME_qa_tunnel1" # placeholder, no es una clave real
+vpn_preshared_key_2     = "CHANGE_ME_qa_tunnel2" # placeholder, no es una clave real
+
+# --- Backend remoto ---
+backend_bucket         = "cloud-ops-vpc-tfstate-qa"
+backend_dynamodb_table = "cloud-ops-vpc-tflock-qa"
+
+# --- Etiquetas ---
+tags = {
+  Environment = "qa"
+  Project     = "cloud-ops-vpc"
+  ManagedBy   = "terraform"
+  CostCenter  = "qa-team"
+  SLATarget   = "99.9"
+}

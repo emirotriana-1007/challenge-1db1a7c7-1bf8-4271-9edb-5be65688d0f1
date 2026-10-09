@@ -39,32 +39,32 @@ output "internet_gateway_id" {
 # =====================================================
 
 output "subnet_publica_1_id" {
-  description = "Identificador de la subred pública en AZ ${var.region}a"
+  description = "Identificador de la subred pública en la primera AZ"
   value       = aws_subnet.publica_1.id
 }
 
 output "subnet_publica_1_cidr" {
-  description = "Bloque CIDR de la subred pública en AZ ${var.region}a"
+  description = "Bloque CIDR de la subred pública en la primera AZ"
   value       = aws_subnet.publica_1.cidr_block
 }
 
 output "subnet_publica_2_id" {
-  description = "Identificador de la subred pública en AZ ${var.region}b"
+  description = "Identificador de la subred pública en la segunda AZ"
   value       = aws_subnet.publica_2.id
 }
 
 output "subnet_publica_2_cidr" {
-  description = "Bloque CIDR de la subred pública en AZ ${var.region}b"
+  description = "Bloque CIDR de la subred pública en la segunda AZ"
   value       = aws_subnet.publica_2.cidr_block
 }
 
 output "subnet_publica_3_id" {
-  description = "Identificador de la subred pública en AZ ${var.region}c"
+  description = "Identificador de la subred pública en la tercera AZ"
   value       = aws_subnet.publica_3.id
 }
 
 output "subnet_publica_3_cidr" {
-  description = "Bloque CIDR de la subred pública en AZ ${var.region}c"
+  description = "Bloque CIDR de la subred pública en la tercera AZ"
   value       = aws_subnet.publica_3.cidr_block
 }
 
@@ -73,32 +73,32 @@ output "subnet_publica_3_cidr" {
 # =====================================================
 
 output "subnet_privada_1_id" {
-  description = "Identificador de la subred privada en AZ ${var.region}a"
+  description = "Identificador de la subred privada en la primera AZ"
   value       = aws_subnet.privada_1.id
 }
 
 output "subnet_privada_1_cidr" {
-  description = "Bloque CIDR de la subred privada en AZ ${var.region}a"
+  description = "Bloque CIDR de la subred privada en la primera AZ"
   value       = aws_subnet.privada_1.cidr_block
 }
 
 output "subnet_privada_2_id" {
-  description = "Identificador de la subred privada en AZ ${var.region}b"
+  description = "Identificador de la subred privada en la segunda AZ"
   value       = aws_subnet.privada_2.id
 }
 
 output "subnet_privada_2_cidr" {
-  description = "Bloque CIDR de la subred privada en AZ ${var.region}b"
+  description = "Bloque CIDR de la subred privada en la segunda AZ"
   value       = aws_subnet.privada_2.cidr_block
 }
 
 output "subnet_privada_3_id" {
-  description = "Identificador de la subred privada en AZ ${var.region}c"
+  description = "Identificador de la subred privada en la tercera AZ"
   value       = aws_subnet.privada_3.id
 }
 
 output "subnet_privada_3_cidr" {
-  description = "Bloque CIDR de la subred privada en AZ ${var.region}c"
+  description = "Bloque CIDR de la subred privada en la tercera AZ"
   value       = aws_subnet.privada_3.cidr_block
 }
 
@@ -107,32 +107,32 @@ output "subnet_privada_3_cidr" {
 # =====================================================
 
 output "nat_gateway_1_id" {
-  description = "Identificador del NAT Gateway en AZ ${var.region}a"
+  description = "Identificador del NAT Gateway en la primera AZ"
   value       = aws_nat_gateway.principal_1.id
 }
 
 output "nat_gateway_1_ip" {
-  description = "Dirección IP elástica del NAT Gateway en AZ ${var.region}a"
+  description = "Dirección IP elástica del NAT Gateway en la primera AZ"
   value       = aws_nat_gateway.principal_1.allocation_id
 }
 
 output "nat_gateway_2_id" {
-  description = "Identificador del NAT Gateway en AZ ${var.region}b"
+  description = "Identificador del NAT Gateway en la segunda AZ"
   value       = aws_nat_gateway.principal_2.id
 }
 
 output "nat_gateway_2_ip" {
-  description = "Dirección IP elástica del NAT Gateway en AZ ${var.region}b"
+  description = "Dirección IP elástica del NAT Gateway en la segunda AZ"
   value       = aws_nat_gateway.principal_2.allocation_id
 }
 
 output "nat_gateway_3_id" {
-  description = "Identificador del NAT Gateway en AZ ${var.region}c"
+  description = "Identificador del NAT Gateway en la tercera AZ"
   value       = aws_nat_gateway.principal_3.id
 }
 
 output "nat_gateway_3_ip" {
-  description = "Dirección IP elástica del NAT Gateway en AZ ${var.region}c"
+  description = "Dirección IP elástica del NAT Gateway en la tercera AZ"
   value       = aws_nat_gateway.principal_3.allocation_id
 }
 
@@ -146,17 +146,17 @@ output "route_table_publica_id" {
 }
 
 output "route_table_privada_1_id" {
-  description = "Identificador de la tabla de enrutamiento privada para AZ ${var.region}a"
+  description = "Identificador de la tabla de enrutamiento privada de la primera AZ"
   value       = aws_route_table.privada_1.id
 }
 
 output "route_table_privada_2_id" {
-  description = "Identificador de la tabla de enrutamiento privada para AZ ${var.region}b"
+  description = "Identificador de la tabla de enrutamiento privada de la segunda AZ"
   value       = aws_route_table.privada_2.id
 }
 
 output "route_table_privada_3_id" {
-  description = "Identificador de la tabla de enrutamiento privada para AZ ${var.region}c"
+  description = "Identificador de la tabla de enrutamiento privada de la tercera AZ"
   value       = aws_route_table.privada_3.id
 }
 
@@ -184,14 +184,14 @@ output "vpn_customer_gateway_id" {
   value       = aws_customer_gateway.principal.id
 }
 
-output "vpn_tunnel_1_status" {
-  description = "Estado del túnel VPN 1"
-  value       = aws_vpn_connection.principal.tunnel_1_status
+output "vpn_tunnel_1_address" {
+  description = "Dirección IP pública del túnel VPN 1"
+  value       = aws_vpn_connection.principal.tunnel1_address
 }
 
-output "vpn_tunnel_2_status" {
-  description = "Estado del túnel VPN 2"
-  value       = aws_vpn_connection.principal.tunnel_2_status
+output "vpn_tunnel_2_address" {
+  description = "Dirección IP pública del túnel VPN 2"
+  value       = aws_vpn_connection.principal.tunnel2_address
 }
 
 output "vpn_remote_network_cidr" {

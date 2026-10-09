@@ -9,27 +9,6 @@ terraform {
       version = "~> 5.0"
     }
   }
-  backend "s3" {
-    # Este bloque se completará en backend.tf
-    # Se usa S3 para almacenar el estado de Terraform y DynamoDB para bloqueo
-  }
-}
-
-provider "aws" {
-  region = var.aws_region
-  default_tags {
-    tags = var.tags
-  }
-}
-
-# Configuración adicional para optimizar la creación de recursos
-# y manejar dependencias entre ellos
-provider "aws" {
-  alias  = "east"
-  region = "us-east-1"
-  default_tags {
-    tags = var.tags
-  }
 }
 
 # Validación de la configuración del provider

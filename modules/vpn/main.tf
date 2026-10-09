@@ -44,10 +44,10 @@ resource "aws_vpn_connection" "main" {
 resource "aws_ec2_transit_gateway" "main" {
   count = var.enable_transit_gateway ? 1 : 0
 
-  amazon_asn             = var.transit_gateway_asn
-  description            = "Transit Gateway para ${var.project_name} - ${var.environment}"
-  dns_support            = "enable"
-  vpn_ecmp_support       = "enable"
+  amazon_asn                      = var.transit_gateway_asn
+  description                     = "Transit Gateway para ${var.project_name} - ${var.environment}"
+  dns_support                     = "enable"
+  vpn_ecmp_support                = "enable"
   default_route_table_association = "enable"
   default_route_table_propagation = "enable"
 
@@ -69,8 +69,8 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "main" {
   vpc_id             = var.vpc_id
   subnet_ids         = var.transit_gateway_subnet_ids
 
-  dns_support   = "enable"
-  ipv6_support  = "disable"
+  dns_support  = "enable"
+  ipv6_support = "disable"
 
   tags = merge(
     var.common_tags,
@@ -86,8 +86,8 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "main" {
 resource "aws_ec2_transit_gateway_vpn_attachment" "main" {
   count = var.enable_transit_gateway ? 1 : 0
 
-  transit_gateway_id     = aws_ec2_transit_gateway.main[0].id
-  vpn_connection_id      = aws_vpn_connection.main.id
+  transit_gateway_id = aws_ec2_transit_gateway.main[0].id
+  vpn_connection_id  = aws_vpn_connection.main.id
 
   tags = merge(
     var.common_tags,
